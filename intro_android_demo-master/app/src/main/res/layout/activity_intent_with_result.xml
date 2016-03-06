@@ -9,19 +9,23 @@
     android:weightSum="1">
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="186dp"
-        android:id="@+id/listView"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.25"
-        />
+        android:id="@+id/listview"
+        android:layout_width="344dp"
+        android:layout_height="353dp"
+        android:visibility="visible"
+        android:smoothScrollbar="false"
+        android:stackFromBottom="false"
+        android:scrollingCache="false"
+        android:background="@android:color/darker_gray">
+    </ListView>
+
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="enterText"
-        android:text="Launch Activity for Result" />
+        android:text="Submit" />
 
     <TextView
         android:id="@+id/txtDisplayResult"

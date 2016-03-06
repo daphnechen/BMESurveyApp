@@ -7,17 +7,24 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class IntentWithResultActivity extends Activity {
 	
 	final static int GET_RESULT_TEXT = 0;
-
+    ListView listview;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_intent_with_result);
+        listview = (ListView) findViewById(R.id.listview);
+        listview.setAdapter(new yourAdapter(this, new String[] { "Do you have diabetes?",
+                "Are you on medication for diabetes?", "How many hours of exercise " +
+                "(not including daily walking) did you get last week",
+        "Has anyone else had diabetes in your family?",
+        "Do you have any other medical conditions?"}));
 	}
 
 	@Override

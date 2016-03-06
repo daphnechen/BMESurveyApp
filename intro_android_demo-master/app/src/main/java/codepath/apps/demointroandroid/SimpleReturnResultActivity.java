@@ -6,13 +6,16 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 
 public class SimpleReturnResultActivity extends Activity {
 
+    ListView listview;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_simple_return_result);
+
 	}
 
 	@Override
