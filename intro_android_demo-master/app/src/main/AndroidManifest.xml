@@ -87,7 +87,8 @@
         </activity>
         <activity
             android:name="codepath.apps.demointroandroid.SimpleReturnResultActivity"
-            android:label="@string/title_activity_simple_return_result" >
+            android:label="@string/popup"
+            android:theme="@style/AppTheme.CustomTheme">
         </activity>
         <activity
             android:name="codepath.apps.demointroandroid.BasicImageDownloadActivity"

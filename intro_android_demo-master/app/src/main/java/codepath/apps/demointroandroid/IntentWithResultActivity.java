@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 public class IntentWithResultActivity extends Activity {
 	
 	final static int GET_RESULT_TEXT = 0;
@@ -24,7 +26,7 @@ public class IntentWithResultActivity extends Activity {
                 "Are you on medication for diabetes?", "How many hours of exercise " +
                 "(not including daily walking) did you get last week",
         "Has anyone else had diabetes in your family?",
-        "Do you have any other medical conditions?"}));
+        "Do you have any other medical conditions?","What symptoms have you had in the past week?"}));
 	}
 
 	@Override
@@ -35,9 +37,12 @@ public class IntentWithResultActivity extends Activity {
 	}
 	
 	public void enterText(View v) {
-		startActivityForResult(
-				  new Intent(IntentWithResultActivity.this, SimpleReturnResultActivity.class), 
-				    GET_RESULT_TEXT);
+        Intent myIntent = new Intent(IntentWithResultActivity.this, SimpleReturnResultActivity.class);
+        TextView t = (TextView) v.findViewById(R.id.text);
+        String hello = t.getText().toString();
+        myIntent.putExtra("firstKeyName",hello);
+        myIntent.putExtra("secondKeyName","SecondKeyValue");
+		startActivityForResult(myIntent, GET_RESULT_TEXT);
 	}
 	
 	// Handle the result once the activity returns a result, display contact
