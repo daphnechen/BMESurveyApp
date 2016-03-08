@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.view.Window;
+import android.view.*;
 
 public class SimpleReturnResultActivity extends Activity {
 
@@ -19,6 +21,7 @@ TextView textview;
         String firstKeyName = myIntent.getStringExtra("firstKeyName");
         String secondKeyName = myIntent.getStringExtra("secondKeyName");
 		super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_simple_return_result);
 
         textview = (TextView) findViewById(R.id.textView);
@@ -29,7 +32,9 @@ TextView textview;
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int)(width*.8),(int)(height*.7));
+        getWindow().setLayout((int)(width*.8),(int)(height*.55));
+
+
 
 
 	}

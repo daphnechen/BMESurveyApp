@@ -70,7 +70,14 @@
         </activity>
         <activity
             android:name="codepath.apps.demointroandroid.IntentWithResultActivity"
-            android:label="SURVEY APP"><!--"@string/title_activity_intent_with_result" >-->
+            android:label="SURVEY APP"
+            android:theme="@style/NoActionBar"><!--"@string/title_activity_intent_with_result" >-->
+
+        </activity>
+        <activity
+            android:name="codepath.apps.demointroandroid.LoginActivity"
+            android:label="ActionBarMenuActivity"
+            android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

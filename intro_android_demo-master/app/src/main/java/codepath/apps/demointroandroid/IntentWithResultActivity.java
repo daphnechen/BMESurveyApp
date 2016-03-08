@@ -44,6 +44,13 @@ public class IntentWithResultActivity extends Activity {
         myIntent.putExtra("secondKeyName","SecondKeyValue");
 		startActivityForResult(myIntent, GET_RESULT_TEXT);
 	}
+    public void submit(View v) {
+        Intent myIntent = new Intent(IntentWithResultActivity.this, SimpleReturnResultActivity.class);
+        String hello = "CONSENT FORM";
+        myIntent.putExtra("firstKeyName",hello);
+        myIntent.putExtra("secondKeyName","SecondKeyValue");
+        startActivityForResult(myIntent, GET_RESULT_TEXT);
+    }
 	
 	// Handle the result once the activity returns a result, display contact
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
