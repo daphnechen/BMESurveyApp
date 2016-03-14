@@ -4,13 +4,17 @@
     package="codepath.apps.demointroandroid"
     android:versionCode="2"
     android:versionName="2.0" >
-    
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -19,57 +23,56 @@
         android:theme="@style/AppTheme"
         android:name="MyApplication">
         <activity
-            android:name="codepath.apps.demointroandroid.DemoSelector"
+            android:name=".DemoSelector"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".BasicTextViewActivity"
+            android:label="hello" > <!-- "@string/title_activity_basic_text_view" > -->
 
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.BasicTextViewActivity"
-            android:label= "hello"><!--"@string/title_activity_basic_text_view" >-->
-
-        </activity>
-        <activity
-            android:name="codepath.apps.demointroandroid.LinearLayoutDemoActivity"
+            android:name=".LinearLayoutDemoActivity"
             android:label="@string/title_activity_linear_layout_demo" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.LayoutGravityActivity"
+            android:name=".LayoutGravityActivity"
             android:label="@string/title_activity_layout_gravity" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.BasicViewsActivity"
+            android:name=".BasicViewsActivity"
             android:label="@string/title_activity_basic_views" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.ViewAttributesActivity"
+            android:name=".ViewAttributesActivity"
             android:label="@string/title_activity_view_attributes" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.SimpleListViewActivity"
+            android:name=".SimpleListViewActivity"
             android:label="@string/title_activity_simple_list_view" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.BasicClickHandlersActivity"
+            android:name=".BasicClickHandlersActivity"
             android:label="@string/title_activity_basic_click_handlers" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.ButtonToastActivity"
+            android:name=".ButtonToastActivity"
             android:label="@string/title_activity_button_toast" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.ListViewClicksActivity"
+            android:name=".ListViewClicksActivity"
             android:label="@string/title_activity_list_view_clicks" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.ExplicitIntentActivity"
+            android:name=".ExplicitIntentActivity"
             android:label="@string/title_activity_explicit_intent" >
-
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.ImplicitIntentsActivity"
+            android:name=".ImplicitIntentsActivity"
             android:label="@string/title_activity_implicit_intents" >
         </activity>
         <activity
+<<<<<<< HEAD
             android:name="codepath.apps.demointroandroid.ConsentFormActivity"
             android:label="CONSENTFORM"
             android:theme="@style/NoActionBar"><!--"@string/title_activity_intent_with_result" >-->
@@ -77,14 +80,17 @@
         </activity>
         <activity
             android:name="codepath.apps.demointroandroid.IntentWithResultActivity"
+=======
+            android:name=".IntentWithResultActivity"
+>>>>>>> origin/master
             android:label="SURVEY APP"
-            android:theme="@style/NoActionBar"><!--"@string/title_activity_intent_with_result" >-->
+            android:theme="@style/NoActionBar" > <!-- "@string/title_activity_intent_with_result" > -->
 
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.LoginActivity"
+            android:name=".LoginActivity"
             android:label="ActionBarMenuActivity"
-            android:theme="@style/NoActionBar">
+            android:theme="@style/NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -92,61 +98,69 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.ActionBarMenuActivity"
+            android:name=".ActionBarMenuActivity"
             android:label="@string/title_activity_action_bar_menu" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.SimpleBundleDemoActivity"
+            android:name=".SimpleBundleDemoActivity"
             android:label="@string/title_activity_simple_bundle_demo" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.SimpleReturnResultActivity"
+            android:name=".SimpleReturnResultActivity"
             android:label="@string/popup"
-            android:theme="@style/AppTheme.CustomTheme">
+            android:theme="@style/AppTheme.CustomTheme" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.BasicImageDownloadActivity"
+            android:name=".BasicImageDownloadActivity"
             android:label="@string/title_activity_basic_image_download" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.AsyncTaskPerformActivity"
+            android:name=".AsyncTaskPerformActivity"
             android:label="@string/title_activity_async_task_perform" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.SmartImageDownloadActivity"
+            android:name=".SmartImageDownloadActivity"
             android:label="@string/title_activity_smart_image_download" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.ToastFormInputsActivity"
+            android:name=".ToastFormInputsActivity"
             android:label="@string/title_activity_toast_form_inputs" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.SpinnerWithToastActivity"
+            android:name=".SpinnerWithToastActivity"
             android:label="@string/title_activity_spinner_with_toast" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.TimePickerDemoActivity"
+            android:name=".TimePickerDemoActivity"
             android:label="@string/title_activity_time_picker_demo" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.ProgressBarActivity"
+            android:name=".ProgressBarActivity"
             android:label="@string/title_activity_progress_bar" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.GridViewDemoActivity"
+            android:name=".GridViewDemoActivity"
             android:label="@string/title_activity_grid_view_demo" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.PersistSettingsActivity"
+            android:name=".PersistSettingsActivity"
             android:label="@string/title_activity_persist_settings" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.ContactListActivity"
+            android:name=".ContactListActivity"
             android:label="@string/title_activity_contact_list" >
         </activity>
         <activity
-            android:name="codepath.apps.demointroandroid.PublishingInstructionsActivity"
+            android:name=".PublishingInstructionsActivity"
             android:label="@string/title_activity_publishing_instructions" >
+        </activity>
+        <activity
+            android:name=".WebView"
+            android:label="@string/title_activity_web_view"
+            android:parentActivityName=".IntentWithResultActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="codepath.apps.demointroandroid.IntentWithResultActivity" />
         </activity>
     </application>
 
