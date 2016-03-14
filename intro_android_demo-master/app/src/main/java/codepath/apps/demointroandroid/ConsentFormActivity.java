@@ -15,24 +15,26 @@ import android.view.*;
 
 import com.firebase.client.Firebase;
 
-public class SimpleReturnResultActivity extends Activity {
+public class ConsentFormActivity extends Activity {
     private String question;
     private TextView textview;
     private final Firebase ref = new Firebase("https://healthsurvey1.firebaseio.com/survey");
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         Intent myIntent = getIntent(); // gets the previously created intent
         Firebase.setAndroidContext(this);
         String firstKeyName = myIntent.getStringExtra("firstKeyName");
         question = firstKeyName;
         String secondKeyName = myIntent.getStringExtra("secondKeyName");
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_simple_return_result);
-
-        textview = (TextView) findViewById(R.id.textView);
-        textview.setText(firstKeyName);
+        setContentView(R.layout.activity_consent_form);
+        String consentFormText = "blah blah blah blah blah blah blah blah blah blah blah "
+                + "blah blah blah blah blah blah blah blah blah blah blah blah blah blah "
+                + "blah blah blah blah blah blah blah blah blah blah blah blah blah blah ";
+        textview = (TextView) findViewById(R.id.textView7);
+        textview.setText(consentFormText);
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
@@ -44,7 +46,7 @@ public class SimpleReturnResultActivity extends Activity {
 
 
 
-	}
+    }
 
     /*
 	@Override
@@ -53,13 +55,15 @@ public class SimpleReturnResultActivity extends Activity {
 		getMenuInflater().inflate(R.menu.activity_simple_return_result, menu);
 		return true;
 	}*/
-	
-	public void sendResult(View v) {
-		String answer = ((EditText) findViewById(R.id.txtRandomResultText)).getText().toString();
+
+    public void sendResult(View v) {
+        //String answer = ((EditText) findViewById(R.id.txtRandomResultText)).getText().toString();
         String uid = ((MyApplication) this.getApplication()).getUID(); //to get uid.
         //ref.child("answers").child(uid).child(question).setValue(result);
+        int totalQuestionNum = ((MyApplication) this.getApplication()).getQuestionArr().length;
+        int totalQuestionAns = ((MyApplication) this.getApplication()).getQuestionsAnswered();
 
-        if(question.equalsIgnoreCase("CONSENT FORM")) {
+        if(totalQuestionAns == totalQuestionNum) {
             int questionNum = ((MyApplication) this.getApplication()).getQuestionNum();
             int answerNum = ((MyApplication) this.getApplication()).getAnswerNum();
             String[] questions = ((MyApplication) this.getApplication()).getQuestions();
@@ -69,15 +73,17 @@ public class SimpleReturnResultActivity extends Activity {
                 Log.d(questions[i],answers[i]);
             }
             Log.d("heyyoooo","hella1111");
+            Intent i = new Intent();
+            i.putExtra("result", "Submitted! Thank you.");
+            setResult(RESULT_OK, i);
+            finish();
         } else {
-            ((MyApplication) this.getApplication()).setQuestions(question.substring(0,question.length()-1));
-            ((MyApplication) this.getApplication()).setAnswers(answer);
-            Log.d("heyyoooo","hella");
+            Intent i = new Intent();
+            i.putExtra("result", "Please answer all questions.");
+            setResult(RESULT_OK, i);
+            finish();
         }
-		Intent i = new Intent();
-		i.putExtra("result", "Answer stored.");
-		setResult(RESULT_OK, i);
-		finish();
-	}
+
+    }
 
 }

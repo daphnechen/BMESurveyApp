@@ -16,7 +16,8 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:name="MyApplication">
         <activity
             android:name="codepath.apps.demointroandroid.DemoSelector"
             android:label="@string/app_name" >
@@ -67,6 +68,12 @@
         <activity
             android:name="codepath.apps.demointroandroid.ImplicitIntentsActivity"
             android:label="@string/title_activity_implicit_intents" >
+        </activity>
+        <activity
+            android:name="codepath.apps.demointroandroid.ConsentFormActivity"
+            android:label="CONSENTFORM"
+            android:theme="@style/NoActionBar"><!--"@string/title_activity_intent_with_result" >-->
+
         </activity>
         <activity
             android:name="codepath.apps.demointroandroid.IntentWithResultActivity"
