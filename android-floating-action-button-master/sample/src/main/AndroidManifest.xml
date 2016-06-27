@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.getbase.floatingactionbutton.sample">
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AppCompat.Light"
+        android:name="MyApplication">
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name"
+            android:theme="@style/log">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".SyncService"
+            android:label="@string/app_name">
+        </activity>
+        <receiver android:name=".myAlarm">
+
+        </receiver>
+        <service
+            android:name=".InviteService">
+        </service>
+        <activity
+            android:name=".GlucoseLogActivity"
+            android:label="@string/app_name"
+            android:theme="@style/log">
+        </activity>
+        <activity
+            android:name=".QuestionActivity"
+            android:label="@string/app_name"
+            android:theme="@style/log">
+        </activity>
+        <activity
+            android:name=".ConsentFormActivity"
+            android:label="@string/app_name"
+            android:theme="@style/log">
+        </activity>
+        <activity
+            android:name=".BloodPressureLogActivity"
+            android:label="@string/app_name"
+            android:theme="@style/log">
+        </activity>
+        <activity
+            android:name=".CholesterolLogActivity"
+            android:label="@string/app_name"
+            android:theme="@style/log">
+        </activity>
+    </application>
+
+</manifest>
