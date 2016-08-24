@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Records">
+        <menu>
+            <item
+                android:id="@+id/nav_bloodpressure"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Blood Pressure" />
+            <item
+                android:id="@+id/nav_medication"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Medication" />
+            <item
+                android:id="@+id/nav_surveys"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Surveys" />
+        </menu>
+    </item>
+
+
+            <item
+                android:id="@+id/nav_callmypharmacist"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Call My Pharmacist" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Log Out" />
+
+
+
+</menu>
