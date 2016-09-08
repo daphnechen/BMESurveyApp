@@ -68,6 +68,15 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        boolean alarmUp = (PendingIntent.getBroadcast(this, 0,
+                new Intent("com.my.package.MY_UNIQUE_ACTION"),
+                PendingIntent.FLAG_NO_CREATE) != null);
+
+        if (alarmUp)
+        {
+            Log.d("myTag", "Alarm is already active");
+        }
+
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         String UID = ((MyApplication) this.getApplication()).getUID();

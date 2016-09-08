@@ -26,7 +26,10 @@ public class MyApplication extends Application{
     private int[] adherenceSurveyAnswersRW = {0,0,0,0,0,0,0,0};
     private int[] literacySurveyAnswers = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     private int[] literacySurveyAnswersRW = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
     private ArrayList<Medication> medicationList = new ArrayList<>();
+
+
 
     public void setName(String name) {
         this.name = name;
@@ -111,6 +114,17 @@ public class MyApplication extends Application{
 
     public void resetMedicationList() {
         medicationList = new ArrayList<>();
+    }
+
+    public String[] getMedicationNames() {
+        String [] medicationNames = new String[medicationList.size()];
+        int counter = 0;
+        for(Medication m: medicationList) {
+            medicationNames[counter] = m.getName();
+            System.out.println(m.getName());
+            counter++;
+        }
+        return medicationNames;
     }
     //********************************************************************************************
     public void setDemographicsSurveyAnswers(int[] answers) {

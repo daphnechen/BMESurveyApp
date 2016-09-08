@@ -52,6 +52,45 @@ public class ReminderService extends IntentService
 
     @Override
     protected void onHandleIntent(Intent intent) {
+
+        //first notification at 10 AM
+        Calendar cur_cal = new GregorianCalendar();
+        cur_cal.setTimeInMillis(System.currentTimeMillis());//set the current time and date for this calendar
+
+        Calendar cal = new GregorianCalendar();
+        cal.setTimeInMillis(System.currentTimeMillis());
+        cal.set(Calendar.HOUR_OF_DAY, 10); //18:32
+        cal.set(Calendar.MINUTE, 24);
+        cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) + 1);
+
+        Intent alarmIntent = new Intent(this, MyAlarmReceiver.class);
+        alarmIntent.putExtra("type", 1);
+        final int _id = (int) cal.getTimeInMillis();
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, _id, alarmIntent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+
+        //second notification at 12 PM
+        cal.set(Calendar.HOUR_OF_DAY, 12); //18:32
+        cal.set(Calendar.MINUTE, 26);
+        alarmIntent = new Intent(this, MyAlarmReceiver.class);
+        alarmIntent.putExtra("type", 2);
+        final int _id1 = (int) cal.getTimeInMillis();
+        pendingIntent = PendingIntent.getBroadcast(this, _id1, alarmIntent, 0);
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+
+        //third notification at 2 PM
+        cal.set(Calendar.HOUR_OF_DAY, 14); //18:32
+        cal.set(Calendar.MINUTE, 26);
+        alarmIntent = new Intent(this, MyAlarmReceiver.class);
+        alarmIntent.putExtra("type", 3);
+        final int _id2 = (int) cal.getTimeInMillis();
+        pendingIntent = PendingIntent.getBroadcast(this, _id2, alarmIntent, 0);
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+
+
         int typeOfNotification =  intent.getIntExtra("type", 0);
 
         SharedPreferences settings = getSharedPreferences(PREFS_UID, 0);
@@ -60,6 +99,115 @@ public class ReminderService extends IntentService
         Log.d("UID", UIDstored);
 
         if(UIDstored.equals("Default")) {
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.drawable.ic_menu_camera)
+                    .setContentTitle("BP-n-ME")
+                    .setContentText("Please log in to receive medicine reminders.");
+            Intent resultIntent = new Intent(this, MainActivity.class);
+
+            PendingIntent resultPendingIntent =
+                    PendingIntent.getActivity(
+                            this,
+                            0,
+                            resultIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                    );
+
+            mBuilder.setContentIntent(resultPendingIntent);
+            int mNotificationId = 001;
+            NotificationManager mNotifyMgr =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            mNotifyMgr.notify(mNotificationId, mBuilder.build());
+        } else {
+            //if I've received something from the previous broadcast, maybe just continue that one.
+            SharedPreferences settings1 = getSharedPreferences("Medication", 0);
+            String oneDay = settings1.getString("onePerDay", "Default");
+            String twoDay = settings1.getString("twoPerDay", "Default");
+            String threeDay = settings1.getString("threePerDay", "Default");
+            String fourDay = settings1.getString("fourPerDay", "Default");
+
+            String listOfMeds = "";
+            if(typeOfNotification == 1) {
+                if(!oneDay.equals("Default")) {
+                    listOfMeds = listOfMeds + oneDay;
+                }
+
+                if(!twoDay.equals("Default")) {
+                    listOfMeds = listOfMeds + twoDay;
+                }
+
+                if(!threeDay.equals("Default")) {
+                    listOfMeds = listOfMeds + threeDay;
+                }
+            } else if(typeOfNotification == 2) {
+                if(!twoDay.equals("Default")) {
+                    listOfMeds = listOfMeds + twoDay;
+                }
+
+                if(!threeDay.equals("Default")) {
+                    listOfMeds = listOfMeds + threeDay;
+                }
+            } else if(typeOfNotification == 3) {
+                if(!threeDay.equals("Default")) {
+                    listOfMeds = listOfMeds + threeDay;
+                }
+            } else {
+                //something went wrong
+                listOfMeds = oneDay + twoDay + threeDay + "<= list";
+                Log.e("error","soemthing went wrong with reminders");
+            }
+
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.drawable.ic_menu_camera)
+                    .setContentTitle("BP-n-ME")
+                    .setContentText("It is time to take the following medication: " + listOfMeds);
+            Intent resultIntent = new Intent(this, MainActivity.class);
+
+            PendingIntent resultPendingIntent =
+                    PendingIntent.getActivity(
+                            this,
+                            0,
+                            resultIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                    );
+
+            mBuilder.setContentIntent(resultPendingIntent);
+            int mNotificationId = 001;
+            NotificationManager mNotifyMgr =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            mNotifyMgr.notify(mNotificationId, mBuilder.build());
+        }
+
+
+        /*
+        int typeOfNotification =  intent.getIntExtra("type", 0);
+
+        SharedPreferences settings = getSharedPreferences(PREFS_UID, 0);
+        //there should be a second settings for the medications list
+        String UIDstored = settings.getString("UID", "Default");
+        Log.d("UID", UIDstored);
+
+        if(UIDstored.equals("Default")) {
+            Calendar cur_cal = new GregorianCalendar();
+            cur_cal.setTimeInMillis(System.currentTimeMillis());//set the current time and date for this calendar
+
+            Calendar cal = new GregorianCalendar();
+            cal.add(Calendar.DAY_OF_YEAR, cur_cal.get(Calendar.DAY_OF_YEAR));
+            cal.set(Calendar.HOUR_OF_DAY, 10); //18:32
+            cal.set(Calendar.MINUTE, 10);
+            cal.set(Calendar.SECOND, cur_cal.get(Calendar.SECOND));
+            cal.set(Calendar.MILLISECOND, cur_cal.get(Calendar.MILLISECOND));
+            cal.set(Calendar.DATE, cur_cal.get(Calendar.DATE));
+            cal.set(Calendar.MONTH, cur_cal.get(Calendar.MONTH));
+
+
+            Intent alarmIntent = new Intent(this, MyAlarmReceiver.class);
+            alarmIntent.putExtra("type", 1);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+
+
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                     .setSmallIcon(R.drawable.ic_menu_camera)
                     .setContentTitle("BP-n-ME")
@@ -97,9 +245,10 @@ public class ReminderService extends IntentService
             cur_cal.setTimeInMillis(System.currentTimeMillis());//set the current time and date for this calendar
 
             Calendar cal = new GregorianCalendar();
+            cal.setTimeInMillis(System.currentTimeMillis());
             cal.add(Calendar.DAY_OF_YEAR, cur_cal.get(Calendar.DAY_OF_YEAR));
-            cal.set(Calendar.HOUR_OF_DAY, 10); //18:32
-            cal.set(Calendar.MINUTE, 10);
+            cal.set(Calendar.HOUR_OF_DAY, 2); //18:32
+            cal.set(Calendar.MINUTE, 19);
             cal.set(Calendar.SECOND, cur_cal.get(Calendar.SECOND));
             cal.set(Calendar.MILLISECOND, cur_cal.get(Calendar.MILLISECOND));
             cal.set(Calendar.DATE, cur_cal.get(Calendar.DATE));
@@ -107,9 +256,9 @@ public class ReminderService extends IntentService
 
             Intent alarmIntent = new Intent(this, MyAlarmReceiver.class);
             alarmIntent.putExtra("type", 1);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+            PendingIntent pendingIntent = PendingIntent.getService(this, 0, alarmIntent, 0);
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
 
             //second notification at 2
             Calendar cal1 = new GregorianCalendar();
@@ -123,7 +272,7 @@ public class ReminderService extends IntentService
 
             Intent alarmIntent1 = new Intent(this, MyAlarmReceiver.class);
             alarmIntent1.putExtra("type", 2);
-            PendingIntent pendingIntent1 = PendingIntent.getBroadcast(this, 0, alarmIntent1, 0);
+            PendingIntent pendingIntent1 = PendingIntent.getService(this, 0, alarmIntent1, 0);
             AlarmManager alarmManager1 = (AlarmManager) getSystemService(ALARM_SERVICE);
             alarmManager1.set(AlarmManager.RTC_WAKEUP, cal1.getTimeInMillis(), pendingIntent1);
 
@@ -139,7 +288,7 @@ public class ReminderService extends IntentService
 
             Intent alarmIntent2 = new Intent(this, MyAlarmReceiver.class);
             alarmIntent2.putExtra("type", 3);
-            PendingIntent pendingIntent2 = PendingIntent.getBroadcast(this, 0, alarmIntent2, 0);
+            PendingIntent pendingIntent2 = PendingIntent.getService(this, 0, alarmIntent2, 0);
             AlarmManager alarmManager2 = (AlarmManager) getSystemService(ALARM_SERVICE);
             alarmManager2.set(AlarmManager.RTC_WAKEUP, cal2.getTimeInMillis(), pendingIntent2);
 
@@ -201,7 +350,7 @@ public class ReminderService extends IntentService
                 mNotifyMgr.notify(mNotificationId, mBuilder.build());
             //}
         }
-
+        */
         //mDatabase = FirebaseDatabase.getInstance().getReference();
         //mDatabase.child("storage").child("users").child(user.getUid()).child("name").setValue(name);
         //read medication values, then issue a new notification
@@ -211,24 +360,7 @@ public class ReminderService extends IntentService
 
 
 
-        Calendar cur_cal = new GregorianCalendar();
-        cur_cal.setTimeInMillis(System.currentTimeMillis());//set the current time and date for this calendar
-
-        Calendar cal = new GregorianCalendar();
-        cal.add(Calendar.DAY_OF_YEAR, cur_cal.get(Calendar.DAY_OF_YEAR));
-        cal.set(Calendar.HOUR_OF_DAY, 10); //18:32
-        cal.set(Calendar.MINUTE, 10);
-        cal.set(Calendar.SECOND, cur_cal.get(Calendar.SECOND));
-        cal.set(Calendar.MILLISECOND, cur_cal.get(Calendar.MILLISECOND));
-        cal.set(Calendar.DATE, cur_cal.get(Calendar.DATE));
-        cal.set(Calendar.MONTH, cur_cal.get(Calendar.MONTH));
-
-
-        Intent alarmIntent = new Intent(this, MyAlarmReceiver.class);
-        alarmIntent.putExtra("type", 1);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent); //setExact allows you to test it out
+         //setExact allows you to test it out
 
         stopService(intent);
     }

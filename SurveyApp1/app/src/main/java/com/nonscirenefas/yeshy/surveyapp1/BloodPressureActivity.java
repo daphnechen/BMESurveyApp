@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
@@ -74,6 +75,8 @@ public class BloodPressureActivity extends AppCompatActivity
             @Override
             public void onDateClick(View view, DateData date) {
                 Intent i = new Intent(ctx, BloodPressureLogActivity.class);
+                i.putExtra("date", String.format("%d-%d", date.getMonth(), date.getDay()));
+                Log.e("nrp",String.format("%d-%d", date.getMonth(), date.getDay()));
                 startActivity(i);
                 /*
                 Snackbar.make(view, String.format("%d-%d", date.getMonth(), date.getDay()), Snackbar.LENGTH_LONG)
